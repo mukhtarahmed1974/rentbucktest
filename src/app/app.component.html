@@ -1,0 +1,54 @@
+<h1>Expense</h1>
+
+<div class="expense-control-btns">
+  <button type="button" (click)="openExpenseForm(true)">{{addExpenseBtn_txt}}</button>
+</div>
+
+<div *ngIf="expenseSection" class="add-expense-form">
+
+  <div class="user-fields-section">
+    <input type="text" placeholder="name" #username>
+    <input type="number" placeholder="expense" #userexpense>
+
+    <button type="text" (click)="addExpense()">Add</button>
+  </div>
+
+  <p class="message-txt">
+    {{msg_text}}
+  </p>
+</div>
+
+
+<table id="users">
+  <tr>
+    <th>Name</th>
+    <th>Expense</th>
+  </tr>
+  <tr *ngFor="let user of usersExpenseList">
+    <td>{{ user.name }}</td>
+    <td>{{ user.expense }}</td>
+  </tr>
+</table>
+
+<div class="table-msg-section" *ngIf="usersExpenseList.length === 0">
+  <span>No user exist</span>
+</div>
+
+<div class="settle-up-section">
+  <button type="button" (click)="calculateExpense()" [disabled]="usersExpenseList.length === 0">Settle Up</button>
+</div>
+
+<div class="expense-rate-list" *ngIf="expenses.length > 0">
+  <h4 *ngIf="loadingStatus">Loading ...</h4>
+
+  <table id="expenses" *ngIf="!loadingStatus">
+    <tr>
+      <th>Name</th>
+      <th>Remaining</th>
+    </tr>
+    <tr *ngFor="let user of expenses">
+      <td>{{ user.name }}</td>
+      <td class="expense-amount">{{ user.remaining }}</td>
+    </tr>
+  </table>
+</div>
